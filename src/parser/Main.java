@@ -4,7 +4,7 @@ package parser;
 public class Main {
 
 	public static void main(String[] args){
-		CSVReader reader = new CSVReader("calendar.txt");
+		CSVReader reader = new CSVReader("input/calendar.txt");
 		XMLValues xmlVal;
 		
 		reader.readNextLine();
@@ -21,7 +21,7 @@ public class Main {
 			
 		}
 		
-		XMLFile outputFile = new XMLFile("output.xml");
+		XMLFile outputFile = new XMLFile("output/calendar.xml");
 		outputFile.write(xmlVal);
 		
 		
