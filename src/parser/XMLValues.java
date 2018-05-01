@@ -41,13 +41,13 @@ public class XMLValues {
 	}
 	
 	public String getNext() {
-		if (activeGetCount < titleValues.size() - 1)
+		if (activeGetCount < titleValues.size())
 			return lineValues.get(activeGetLineCount).get(activeGetCount++);
 		return null;
 	}
 	
 	public boolean hasNextInLine() {
-		if (activeGetCount < titleValues.size() - 1)
+		if (activeGetCount < titleValues.size())
 			return true;
 		return false;
 	}

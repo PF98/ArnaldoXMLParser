@@ -12,6 +12,7 @@ public class CSVReader {
 	private File inputFile;
 	Scanner in;
 	
+	private ArrayList<String> titleLineContent;
 	private ArrayList<String> currentLineContent;
 	
 	public CSVReader(String fileName) {
@@ -19,13 +20,22 @@ public class CSVReader {
 		inputFile = new File(this.fileName);
 		in = null;
 		try {
-			in = new Scanner(inputFile).useDelimiter("\\n");
+			in = new Scanner(inputFile);
+			in.useDelimiter("\\n");
 		}
 		catch (FileNotFoundException e) {
 			System.out.println("File not found: error message - " + e.getLocalizedMessage());
 			return;
 		}
+		titleLineContent = new ArrayList<String>();
 		currentLineContent = new ArrayList<String>();
+	}
+	
+	public boolean readTitleLine() {
+		if (!readNextLine())
+			return false;
+		titleLineContent = new ArrayList<String>(currentLineContent);
+		return true;
 	}
 	
 	public boolean readNextLine() {
@@ -37,8 +47,12 @@ public class CSVReader {
 		return false;
 	}
 	
+	public ArrayList<String> getWholeTitleLine() {
+		return new ArrayList<String>(titleLineContent);
+	}
+	
 	public ArrayList<String> getWholeLine() {
-		return currentLineContent;
+		return new ArrayList<String>(currentLineContent);
 	}
 	
 	public boolean hasNextInLine() {
@@ -48,11 +62,7 @@ public class CSVReader {
 	}
 	
 	public String getNext() {
-		String temp = currentLineContent.get(0);
-		currentLineContent.remove(0);
-		return temp;
+		return currentLineContent.remove(0);
 	}
-	
-
 	
 }

@@ -3,26 +3,23 @@ package parser;
 
 public class Main {
 
+	public static final String FILENAME = "calendar";
+	
 	public static void main(String[] args){
-		CSVReader reader = new CSVReader("input/calendar.txt");
-		XMLValues xmlVal;
+		CSVReader reader = new CSVReader(String.format("input/%s.txt", FILENAME));
+		XMLFile outputFile = new XMLFile(String.format("output/%s.xml", FILENAME));
 		
-		reader.readNextLine();
-		xmlVal = new XMLValues(reader.getWholeLine());
+		reader.readTitleLine();
+		outputFile.setTitles(reader.getWholeTitleLine());
+		
+		outputFile.open(FILENAME);
 		
 		while (reader.readNextLine()) {
-			if (!xmlVal.newLine()) {
-				System.out.println("Error while reading the file");
-				return;
-			}
-			while (reader.hasNextInLine()) {
-				xmlVal.addValue(reader.getNext());
-			}
-			
+			outputFile.writeLine(reader.getWholeLine());
 		}
 		
-		XMLFile outputFile = new XMLFile("output/calendar.xml");
-		outputFile.write(xmlVal);
+		outputFile.close();
+		//outputFile.write(xmlVal, FILENAME);
 		
 		
 	}
